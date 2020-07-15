@@ -14,7 +14,7 @@ import ru.ak.compress.exception.CompressException;
 /**
  * Web-сервис для для для работы с архивами
  *
- * @author akakushin
+ * @author a.kakushin
  */
 @WebService(name = "Compress", serviceName = "Compress", portName = "CompressPort")
 public class Compress {
@@ -26,10 +26,14 @@ public class Compress {
             throws CompressException {
 
         List<String> result = new ArrayList<>();
-        
-        IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), fileName);
-        if (archive != null) {
-            result = archive.entries();
+
+        if (format == null || fileName == null) {
+            throw new CompressException("Check parameters (is null): format, fileName");
+        } else {
+            IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), fileName);
+            if (archive != null) {
+                result = archive.entries();
+            }
         }
 
         return result;
@@ -42,11 +46,14 @@ public class Compress {
         @WebParam(name = "destination") String destination) throws CompressException {
 
         List<String> result = new ArrayList<>();
-
-        IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), archiveName);
-        if (archive != null) {
-            result = archive.decompress(destination);
-        }        
+        if (format == null || archiveName == null || destination == null) {
+            throw new CompressException("Check parameters (is null): format, archiveName, destination");
+        } else {
+            IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), archiveName);
+            if (archive != null) {
+                result = archive.decompress(destination);
+            }
+        }
 
         return result;
     }
@@ -59,11 +66,14 @@ public class Compress {
         @WebParam(name = "entryName") String entryName) throws CompressException {
 
         String result = null;
-
-        IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), archiveName);
-        if (archive != null) {
-            result = archive.decompress(destination, entryName);
-        }        
+        if (format == null || archiveName == null || destination == null || entryName == null) {
+            throw new CompressException("Check parameters (is null): format, archiveName, destination, entryName");
+        } else {
+            IArchive archive = ArchiveFactory.create(format.toLowerCase().trim(), archiveName);
+            if (archive != null) {
+                result = archive.decompress(destination, entryName);
+            }
+        }
 
         return result;
     }

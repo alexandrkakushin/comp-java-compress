@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  * Основной класс
- * @author akakushin
+ * @author a.kakushin
  */
 public class MainClass {
 

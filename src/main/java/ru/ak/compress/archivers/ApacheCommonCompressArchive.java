@@ -52,9 +52,11 @@ public abstract class ApacheCommonCompressArchive extends AbstractArchive {
 
             ArchiveEntry entry;
             while ((entry = ais.getNextEntry()) != null) {
-                String target = destination + File.separator + entry.getName();                
-                ais.transferTo(new FileOutputStream(target));                
-                result.add(target);
+                String target = destination + File.separator + entry.getName();
+                try (FileOutputStream fos = new FileOutputStream(target)) {
+                    ais.transferTo(fos);
+                    result.add(target);
+                }
             }
         } catch (Exception ex) {
             throw new CompressException(ex.getMessage());
@@ -73,8 +75,10 @@ public abstract class ApacheCommonCompressArchive extends AbstractArchive {
             ArchiveEntry entry;
             while ((entry = ais.getNextEntry()) != null) {
                 if (entry.getName().equalsIgnoreCase(entryName)) {                
-                    result = destination + File.separator + entry.getName();                
-                    ais.transferTo(new FileOutputStream(result));                
+                    result = destination + File.separator + entry.getName();
+                    try (FileOutputStream fos = new FileOutputStream(result)) {
+                        ais.transferTo(fos);
+                    }
                     break;
                 }
             }
