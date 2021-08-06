@@ -30,7 +30,7 @@
         <jaxws.version>2.3.2</jaxws.version>
         
         <apache-compress.version>1.21</apache-compress.version>
-        <tukaani-xz.version>1.8</tukaani-xz.version>
+        <tukaani-xz.version>1.9</tukaani-xz.version>
         <junrar.version>4.0.0</junrar.version>
 
         <junit.jupiter.version>5.6.0</junit.jupiter.version>
